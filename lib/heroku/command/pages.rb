@@ -42,12 +42,16 @@ class Heroku::Command::Pages < Heroku::Command::Base
   def upload
     extract_and_verify_credentials
 
-    run('s3uploader --help &>/dev/null')
+    run('which aws &>/dev/null')
     unless $?.success?
-      error('Ensure `s3uploader` binary is available (`gem install s3_uploader`)')
+      error('Ensure `aws` binary is available (`[sudo] pip install awscli`)')
     end
 
-    run("s3uploader -p true -r #{@region} -k #{@key} -s #{@secret} -d #{REMOTE_FOLDER} #{LOCAL_FOLDER} #{@bucket}")
+    ENV['AWS_REGION']            = @region
+    ENV['AWS_ACCESS_KEY_ID']     = @key
+    ENV['AWS_SECRET_ACCESS_KEY'] = @secret
+
+    run("aws s3 cp #{LOCAL_FOLDER} s3://#{@bucket}/#{REMOTE_FOLDER} --recursive --acl public-read")
 
     if $?.success?
       display("\e[92mUpload successful.\e[0m")

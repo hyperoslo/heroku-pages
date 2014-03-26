@@ -45,7 +45,7 @@ heroku pages:open
 
 ### Uploading to S3
 
-To upload your Heroku pages to S3 using [S3 Uploader](https://github.com/chrishein/s3_uploader):
+To upload your Heroku pages to S3 using [AWS Command Line Interface](http://aws.amazon.com/cli):
 
 ```shell
 heroku pages:upload
