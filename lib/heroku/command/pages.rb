@@ -92,12 +92,16 @@ class Heroku::Command::Pages < Heroku::Command::Base
     buffer = StringIO.new
 
     PTY.spawn(command) do |output, input, pid|
-      while !output.eof?
-        chunk = output.readpartial(1024)
-        buffer << chunk
-        options[:out].print(chunk) if options[:out]
+      begin
+        while !output.eof?
+          chunk = output.readpartial(1024)
+          buffer << chunk
+          options[:out].print(chunk) if options[:out]
+        end
+      rescue Errno::EIO
+      ensure
+        Process.wait(pid)
       end
-      Process.wait(pid)
     end
 
     buffer.string
