@@ -1,6 +1,6 @@
 # Heroku Pages
 
-[![Code Climate](https://codeclimate.com/github/hyperoslo/heroku-pages.png)](https://codeclimate.com/github/hyperoslo/heroku-pages)
+[![Code Climate](https://img.shields.io/codeclimate/github/hyperoslo/heroku-pages.svg)](https://codeclimate.com/github/hyperoslo/heroku-pages)
 
 Easily inspect, view and upload your [Heroku error and maintenance pages](https://devcenter.heroku.com/articles/error-pages#customize-pages).
 
