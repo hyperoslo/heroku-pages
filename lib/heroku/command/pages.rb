@@ -74,7 +74,7 @@ class Heroku::Command::Pages < Heroku::Command::Base
     @key    = config['AWS_KEY'] || config['AWS_ACCESS_KEY_ID']
     @secret = config['AWS_SECRET'] || config['AWS_SECRET_ACCESS_KEY']
 
-    unless @bucket || @region || @key || @secret
+    unless @bucket && @region && @key && @secret
       error('Ensure AWS_BUCKET, AWS_REGION, AWS_KEY and AWS_SECRET are set')
     end
   end
