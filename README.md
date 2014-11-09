@@ -58,12 +58,9 @@ It assumes the following configuration variables to be present for the given app
 - `AWS_KEY` or `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET` or `AWS_SECRET_ACCESS_KEY`
 
-And it assumes presence of two folders:
+The folder `public/heroku_pages` is assumed to be present in your project.
 
-- Local folder `public/heroku_pages` in your project
-- Remote folder `heroku_pages` on your S3 bucket
-
-All files within the local Heroku pages folder will be made public.
+Remote folder `heroku_pages` on your S3 bucket will be created and all files uploaded to it will be made public.
 
 
 ## Contributing
