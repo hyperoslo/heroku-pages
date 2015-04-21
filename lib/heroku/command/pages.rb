@@ -51,7 +51,7 @@ class Heroku::Command::Pages < Heroku::Command::Base
     ENV['AWS_ACCESS_KEY_ID']     = @key
     ENV['AWS_SECRET_ACCESS_KEY'] = @secret
 
-    run("aws s3 cp #{LOCAL_FOLDER} s3://#{@bucket}/#{REMOTE_FOLDER} --recursive --acl public-read")
+    run("aws s3 cp #{LOCAL_FOLDER} s3://#{@bucket}/#{REMOTE_FOLDER} --recursive --acl public-read --exclude '.*'")
 
     if $?.success?
       display("\e[92mUpload successful.\e[0m")
