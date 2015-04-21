@@ -62,6 +62,7 @@ The folder `public/heroku_pages` is assumed to be present in your project.
 
 Remote folder `heroku_pages` on your S3 bucket will be created and all files uploaded to it will be made public.
 
+**Note**: All hidden files (files starting with `.`) is excluded from uploading.
 
 ## Contributing
 
