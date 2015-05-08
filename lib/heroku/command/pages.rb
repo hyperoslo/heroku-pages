@@ -15,6 +15,8 @@ class Heroku::Command::Pages < Heroku::Command::Base
   LOCAL_FOLDER  = "public/#{FOLDER}"
   REMOTE_FOLDER = FOLDER
 
+  ERROR_PAGES = ['error.html', '500.html']
+
   # pages
   #
   #   Lists current Heroku pages
@@ -33,6 +35,19 @@ class Heroku::Command::Pages < Heroku::Command::Base
     PAGES.each do |page, variable|
       shell("open #{config[variable]}")
     end
+  end
+
+  # pages:configure
+  #
+  #   Sets environment variables for error and maintenance pages
+  #
+  def configure
+    vars = %W{
+      #{PAGES[:error]}='#{error_page_url}'
+      #{PAGES[:maintenance]}='#{maintenance_page_url}'
+    }.join(' ')
+
+    run("heroku config:set -a #{app} #{vars}")
   end
 
   # pages:upload
@@ -77,6 +92,29 @@ class Heroku::Command::Pages < Heroku::Command::Base
     unless @bucket && @region && @key && @secret
       error('Ensure AWS_BUCKET, AWS_REGION, AWS_KEY and AWS_SECRET are set')
     end
+  end
+
+  # Amazon S3 bucket path for current app
+  def bucket_path
+    "https://#{@bucket}.s3.amazonaws.com"
+  end
+
+  # Amazon S3 error page URL (500.html or error.html) for current app
+  def error_page_url
+    extract_and_verify_credentials
+
+    error_page = Dir.chdir(LOCAL_FOLDER) do
+      Dir[*ERROR_PAGES].first || ERROR_PAGES.first
+    end
+
+    "#{bucket_path}/#{FOLDER}/#{error_page}"
+  end
+
+  # Amazon S3 maintenance page URL for current app
+  def maintenance_page_url
+    extract_and_verify_credentials
+
+    "#{bucket_path}/#{FOLDER}/maintenance.html"
   end
 
   # Runs given command using a pseudo-terminal to allow streaming of output
