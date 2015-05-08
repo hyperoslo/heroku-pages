@@ -72,7 +72,7 @@ Both `MAINTENANCE_PAGE_URL` and `ERROR_PAGE_URL` environment variables can be se
 heroku pages:configure
 ```
 
-It assumes `heroku_pages/maintenance.html' and one of `heroku_pages/error.html`
+It assumes `heroku_pages/maintenance.html` and one of `heroku_pages/error.html`
 or `heroku_pages/500.html` to be present on your S3 bucket.
 
 
