@@ -64,6 +64,18 @@ Remote folder `heroku_pages` on your S3 bucket will be created and all files upl
 
 **Note**: Any hidden files - files starting with `.` - will not be uploaded.
 
+### Configuring
+
+Both `MAINTENANCE_PAGE_URL` and `ERROR_PAGE_URL` environment variables can be set automatically on Heroku:
+
+```shell
+heroku pages:configure
+```
+
+It assumes `heroku_pages/maintenance.html' and one of `heroku_pages/error.html`
+or `heroku_pages/500.html` to be present on your S3 bucket.
+
+
 ## Contributing
 
 1. Fork it
